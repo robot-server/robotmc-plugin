@@ -8,7 +8,7 @@ import java.time.OffsetDateTime
 class ClockRunnable : BukkitRunnable() {
     override fun run() {
         val now = OffsetDateTime.now()
-        if (now.minute == 0) {
+        if (now.minute == 0 && now.second == 0) {
             Bukkit.getServer().sendMessage(Component.text("현재 시각은 $now 입니다."))
         }
     }
