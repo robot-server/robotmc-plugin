@@ -1,5 +1,6 @@
 package com.sysbot32.robotmc.plugin
 
+import com.sysbot32.robotmc.plugin.challenge.VehicleMoveChallenge
 import com.sysbot32.robotmc.plugin.clock.ClockRunnable
 import com.sysbot32.robotmc.plugin.coordinate.CoordinateCommand
 import com.sysbot32.robotmc.plugin.coordinate.CoordinateListener
@@ -12,6 +13,7 @@ class RobotmcPlugin : JavaPlugin() {
         ClockRunnable().runTaskTimerAsynchronously(this, 0, 20)
         server.commandMap.register(name.lowercase(), CoordinateCommand())
         server.pluginManager.registerEvents(CoordinateListener(), this)
+        server.pluginManager.registerEvents(VehicleMoveChallenge(), this)
     }
 
     override fun onDisable() {
