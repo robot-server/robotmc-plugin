@@ -1,0 +1,4 @@
+name: robotmc-plugin
+version: '1.0-SNAPSHOT'
+main: com.sysbot32.robotmc.plugin.RobotmcPlugin
+api-version: '1.21'
