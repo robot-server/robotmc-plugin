@@ -6,11 +6,12 @@ import org.bukkit.command.defaults.BukkitCommand
 import org.bukkit.entity.Player
 
 class CoordinateCommand : BukkitCommand(
-    "coordinate", "현재 위치를 공유합니다.", "/coordinate", listOf("coord"),
+    "coordinate", "현재 위치를 공유합니다.", "/coordinate [name]", listOf("coord"),
 ) {
     override fun execute(sender: CommandSender, commandLabel: String, args: Array<out String>): Boolean {
         if (sender is Player) {
-            sender.chat("현재 위치: ${sender.location.toSimpleString()}")
+            val name = if (args.isNotEmpty()) args.first() else "현재 위치"
+            sender.chat("${name}: ${sender.location.toSimpleString()}")
             return true
         }
         return false
