@@ -2,6 +2,7 @@ package com.sysbot32.robotmc.plugin.challenge
 
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.title.Title
+import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.entity.Player
 import org.bukkit.entity.Vehicle
@@ -12,9 +13,15 @@ import org.bukkit.event.vehicle.VehicleExitEvent
 import org.bukkit.event.vehicle.VehicleMoveEvent
 import java.time.OffsetDateTime
 import kotlin.math.pow
+import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
 class VehicleMoveChallenge : Listener {
+    companion object {
+        const val OBJECTIVE_NAME = "vehicleMove"
+        const val DISPLAY_NAME = "탈 것으로 최장 거리"
+    }
+
     private var data = Data()
 
     @EventHandler
@@ -64,7 +71,11 @@ class VehicleMoveChallenge : Listener {
             if (vehicle in this.vehiclePlayerMap) {
                 val player = this.vehiclePlayerMap[vehicle]!!
                 val distance = sqrt((to.x - from.x).pow(2) + (to.y - from.y).pow(2))
-                this.playerScores[player] = this.playerScores[player]!!.plus(distance)
+                val score = this.playerScores[player]!!.plus(distance)
+
+                this.playerScores[player] = score
+                Bukkit.getScoreboardManager().mainScoreboard.getObjective(OBJECTIVE_NAME)?.getScore(player)?.score =
+                    score.roundToInt()
             }
         }
 
