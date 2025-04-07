@@ -1,7 +1,6 @@
 package com.sysbot32.robotmc.plugin.challenge
 
-import net.kyori.adventure.text.Component
-import net.kyori.adventure.title.Title
+import com.sysbot32.robotmc.plugin.core.format
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.entity.Player
@@ -41,13 +40,7 @@ class VehicleMoveChallenge : Listener {
         if (event.exited is Player) {
             val player = event.exited as Player
             this.data.exit(event.vehicle)
-            player.sendMessage("총 이동 거리: ${this.data.playerScores[player]}m")
-            player.showTitle(
-                Title.title(
-                    Component.text("현재 1위: ${this.data.first.name}"),
-                    Component.text("${this.data.playerScores[this.data.first]}m"),
-                )
-            )
+            player.sendMessage("총 이동 거리: ${this.data.playerScores[player]?.format(3)}m")
         }
     }
 
