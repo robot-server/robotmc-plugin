@@ -7,7 +7,6 @@ import com.sysbot32.robotmc.plugin.coordinate.CoordinateListener
 import net.kyori.adventure.text.Component
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scoreboard.Criteria
-import org.bukkit.scoreboard.DisplaySlot
 
 class RobotmcPlugin : JavaPlugin() {
 
@@ -20,9 +19,7 @@ class RobotmcPlugin : JavaPlugin() {
             VehicleMoveChallenge.OBJECTIVE_NAME,
             Criteria.DUMMY,
             Component.text(VehicleMoveChallenge.DISPLAY_NAME),
-        ).apply {
-            displaySlot = DisplaySlot.SIDEBAR
-        }
+        )
         server.pluginManager.registerEvents(VehicleMoveChallenge(), this)
     }
 
