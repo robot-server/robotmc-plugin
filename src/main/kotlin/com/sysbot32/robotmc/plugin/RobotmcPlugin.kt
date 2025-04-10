@@ -4,6 +4,7 @@ import com.sysbot32.robotmc.plugin.challenge.VehicleMoveChallenge
 import com.sysbot32.robotmc.plugin.clock.ClockRunnable
 import com.sysbot32.robotmc.plugin.coordinate.CoordinateCommand
 import com.sysbot32.robotmc.plugin.coordinate.CoordinateListener
+import com.sysbot32.robotmc.plugin.teleport.TeleportCommand
 import net.kyori.adventure.text.Component
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scoreboard.Criteria
@@ -15,6 +16,7 @@ class RobotmcPlugin : JavaPlugin() {
         ClockRunnable().runTaskTimerAsynchronously(this, 0, 20)
         server.commandMap.register(name.lowercase(), CoordinateCommand())
         server.pluginManager.registerEvents(CoordinateListener(), this)
+        server.commandMap.register(name.lowercase(), TeleportCommand())
         server.scoreboardManager.mainScoreboard.registerNewObjective(
             VehicleMoveChallenge.OBJECTIVE_NAME,
             Criteria.DUMMY,
