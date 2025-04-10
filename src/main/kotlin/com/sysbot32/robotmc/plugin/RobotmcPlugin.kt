@@ -27,5 +27,6 @@ class RobotmcPlugin : JavaPlugin() {
 
     override fun onDisable() {
         // Plugin shutdown logic
+        server.scoreboardManager.mainScoreboard.getObjective(VehicleMoveChallenge.OBJECTIVE_NAME)?.unregister()
     }
 }
