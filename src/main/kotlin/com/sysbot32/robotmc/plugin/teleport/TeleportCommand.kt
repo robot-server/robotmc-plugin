@@ -31,9 +31,9 @@ class TeleportCommand : BukkitCommand(
             sender.sendMessage("잔액이 부족합니다! 필요 금액: $price")
             return false
         }
+        sender.sendMessage("${sender.location.toSimpleString()} -> ${destination.toSimpleString()}: $price")
         economy.withdrawPlayer(sender, price)
         sender.teleport(destination)
-        sender.sendMessage("${sender.location.toSimpleString()} -> ${destination.toSimpleString()}: $price")
         return true
     }
 }
