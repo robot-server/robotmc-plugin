@@ -11,9 +11,7 @@ import org.bukkit.event.vehicle.VehicleEnterEvent
 import org.bukkit.event.vehicle.VehicleExitEvent
 import org.bukkit.event.vehicle.VehicleMoveEvent
 import java.time.OffsetDateTime
-import kotlin.math.pow
 import kotlin.math.roundToInt
-import kotlin.math.sqrt
 
 class VehicleMoveChallenge : Listener {
     companion object {
@@ -63,7 +61,7 @@ class VehicleMoveChallenge : Listener {
         fun move(vehicle: Vehicle, from: Location, to: Location) {
             if (vehicle in this.vehiclePlayerMap) {
                 val player = this.vehiclePlayerMap[vehicle]!!
-                val distance = sqrt((to.x - from.x).pow(2) + (to.y - from.y).pow(2))
+                val distance = from.distance(to)
                 val score = this.playerScores[player]!!.plus(distance)
 
                 this.playerScores[player] = score
