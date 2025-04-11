@@ -1,4 +1,4 @@
-name: robotmc-plugin
+name: robotmc-teleport
 version: '1.0-SNAPSHOT'
 main: com.sysbot32.robotmc.plugin.teleport.TeleportPlugin
 api-version: '1.21'
