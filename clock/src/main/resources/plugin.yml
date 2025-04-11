@@ -1,4 +1,4 @@
 name: robotmc-plugin
 version: '1.0-SNAPSHOT'
-main: com.sysbot32.robotmc.plugin.RobotmcPlugin
+main: com.sysbot32.robotmc.plugin.clock.ClockPlugin
 api-version: '1.21'
