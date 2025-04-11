@@ -5,6 +5,7 @@ plugins {
 rootProject.name = "robotmc-plugin"
 
 include("core")
+include("basic-income")
 include("challenge")
 include("clock")
 include("coordinate")
