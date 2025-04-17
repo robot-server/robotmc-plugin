@@ -11,7 +11,7 @@ import org.bukkit.entity.Player
 import kotlin.math.max
 
 class TeleportCommand : BukkitCommand(
-    "teleport", "다른 위치로 순간이동합니다.", "/teleport <destination: x y z>", listOf("tp"),
+    "teleport", "다른 위치로 순간이동합니다.", "/teleport <destination: x y z>", listOf("tp", "taxi"),
 ) {
     override fun execute(sender: CommandSender, commandLabel: String, args: Array<out String>): Boolean {
         if (args.size != 3) {
