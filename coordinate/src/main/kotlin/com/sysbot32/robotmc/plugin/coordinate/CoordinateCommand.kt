@@ -1,6 +1,8 @@
 package com.sysbot32.robotmc.plugin.coordinate
 
+import com.sysbot32.robotmc.plugin.core.coordinates.Coordinate
 import com.sysbot32.robotmc.plugin.core.toSimpleString
+import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.bukkit.command.defaults.BukkitCommand
 import org.bukkit.entity.Player
@@ -12,6 +14,9 @@ class CoordinateCommand : BukkitCommand(
         if (sender is Player) {
             val name = if (args.isNotEmpty()) args.first() else "현재 위치"
             sender.chat("${name}: ${sender.location.toSimpleString()}")
+            Bukkit.getServer().servicesManager.getRegistration(Coordinate::class.java)?.provider?.run {
+                save(sender, name, sender.location)
+            }
             return true
         }
         return false
