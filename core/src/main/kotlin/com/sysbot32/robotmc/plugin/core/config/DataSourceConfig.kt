@@ -1,20 +1,18 @@
 package com.sysbot32.robotmc.plugin.core.config
 
 import com.zaxxer.hikari.HikariDataSource
+import org.bukkit.configuration.Configuration
 import javax.sql.DataSource
 
 class DataSourceConfig(
-    private val dataClassName: String = "com.mysql.cj.jdbc.Driver",
-    private val jdbcUrl: String,
-    private val username: String? = null,
-    private val password: String? = null,
+    private val config: Configuration,
 ) {
     fun dataSource(): DataSource {
         return HikariDataSource().apply {
-            driverClassName = this.driverClassName
-            jdbcUrl = this.jdbcUrl
-            username = this.username
-            password = this.password
+            driverClassName = config.getString("datasource.driverClassName", "com.mysql.cj.jdbc.Driver")
+            jdbcUrl = config.getString("datasource.jdbcUrl")
+            username = config.getString("datasource.username")
+            password = config.getString("datasource.password")
         }
     }
 }

@@ -10,7 +10,9 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 class CoordinatePlugin : JavaPlugin() {
     override fun onEnable() {
-        Database.connect(DataSourceConfig().dataSource())
+        config.options().copyDefaults(true)
+        saveConfig()
+        Database.connect(DataSourceConfig(config).dataSource())
         transaction {
             SchemaUtils.create(CoordinateTable)
         }
