@@ -24,6 +24,23 @@ class TeleportCommand : BukkitCommand(
         return this.teleport(sender, destination)
     }
 
+    override fun tabComplete(
+        sender: CommandSender,
+        alias: String,
+        args: Array<out String>,
+        location: Location?
+    ): List<String?> {
+        super.tabComplete(sender, alias, args, location)
+        if (args.size <= 3 && sender is Player) {
+            return listOf(
+                sender.location.x.format(3),
+                sender.location.y.format(6),
+                sender.location.z.format(3),
+            )
+        }
+        return listOf()
+    }
+
     private fun calculatePrice(source: Location, destination: Location): Double {
         val minPrice = 100.0
         val distance = source.distance(destination)
