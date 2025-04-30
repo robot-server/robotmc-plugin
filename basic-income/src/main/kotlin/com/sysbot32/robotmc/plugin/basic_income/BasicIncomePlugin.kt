@@ -5,6 +5,8 @@ import kotlin.time.Duration.Companion.minutes
 
 class BasicIncomePlugin : JavaPlugin() {
     override fun onEnable() {
-        BasicIncomeRunnable().runTaskTimerAsynchronously(this, 0, 20 * 20.minutes.inWholeSeconds)
+        config.options().copyDefaults(true)
+        saveConfig()
+        BasicIncomeRunnable(this).runTaskTimerAsynchronously(this, 0, 20 * 20.minutes.inWholeSeconds)
     }
 }
