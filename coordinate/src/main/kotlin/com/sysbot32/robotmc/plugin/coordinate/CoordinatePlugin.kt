@@ -17,6 +17,7 @@ class CoordinatePlugin : JavaPlugin() {
             SchemaUtils.create(CoordinateTable)
         }
         server.commandMap.register(name.lowercase(), CoordinateCommand())
+        server.commandMap.register(name.lowercase(), CoordinateListCommand())
         server.commandMap.register(name.lowercase(), ToNetherCommand())
         server.commandMap.register(name.lowercase(), ToOverworldCommand())
         server.pluginManager.registerEvents(CoordinateListener(), this)
