@@ -1,6 +1,7 @@
 package com.sysbot32.robotmc.plugin.basic_income
 
 import com.sysbot32.robotmc.plugin.core.ReloadCommand
+import com.sysbot32.robotmc.plugin.economy.BalanceCommand
 import org.bukkit.plugin.java.JavaPlugin
 import kotlin.time.Duration.Companion.minutes
 
@@ -9,6 +10,7 @@ class BasicIncomePlugin : JavaPlugin() {
         config.options().copyDefaults(true)
         saveConfig()
         BasicIncomeRunnable(this).runTaskTimerAsynchronously(this, 0, 20 * 20.minutes.inWholeSeconds)
+        server.commandMap.register(name.lowercase(), BalanceCommand())
         server.commandMap.register(name.lowercase(), ReloadCommand(this))
     }
 }
