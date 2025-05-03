@@ -1,4 +1,4 @@
-package com.sysbot32.robotmc.plugin.basic_income
+package com.sysbot32.robotmc.plugin.economy.basic_income
 
 import net.milkbowl.vault.economy.Economy
 import org.bukkit.Bukkit

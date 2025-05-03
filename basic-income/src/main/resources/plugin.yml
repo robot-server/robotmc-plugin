@@ -1,4 +1,0 @@
-name: robotmc-basic-income
-version: '1.0-SNAPSHOT'
-main: com.sysbot32.robotmc.plugin.basic_income.BasicIncomePlugin
-api-version: '1.21'

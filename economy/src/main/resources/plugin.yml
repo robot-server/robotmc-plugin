@@ -1,0 +1,4 @@
+name: robotmc-economy
+version: '1.0-SNAPSHOT'
+main: com.sysbot32.robotmc.plugin.economy.EconomyPlugin
+api-version: '1.21'

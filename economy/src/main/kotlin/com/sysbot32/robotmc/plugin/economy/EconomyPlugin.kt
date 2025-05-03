@@ -1,11 +1,11 @@
-package com.sysbot32.robotmc.plugin.basic_income
+package com.sysbot32.robotmc.plugin.economy
 
+import com.sysbot32.robotmc.plugin.economy.basic_income.BasicIncomeRunnable
 import com.sysbot32.robotmc.plugin.core.ReloadCommand
-import com.sysbot32.robotmc.plugin.economy.BalanceCommand
 import org.bukkit.plugin.java.JavaPlugin
 import kotlin.time.Duration.Companion.minutes
 
-class BasicIncomePlugin : JavaPlugin() {
+class EconomyPlugin : JavaPlugin() {
     override fun onEnable() {
         config.options().copyDefaults(true)
         saveConfig()
