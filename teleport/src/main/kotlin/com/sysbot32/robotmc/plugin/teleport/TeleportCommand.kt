@@ -2,6 +2,7 @@ package com.sysbot32.robotmc.plugin.teleport
 
 import com.sysbot32.robotmc.plugin.core.format
 import com.sysbot32.robotmc.plugin.core.toSimpleString
+import io.github.oshai.kotlinlogging.KotlinLogging
 import net.milkbowl.vault.economy.Economy
 import org.bukkit.Bukkit
 import org.bukkit.Location
@@ -10,18 +11,28 @@ import org.bukkit.command.defaults.BukkitCommand
 import org.bukkit.entity.Player
 import kotlin.math.max
 
+private val log = KotlinLogging.logger { }
+
 class TeleportCommand : BukkitCommand(
     "teleport", "다른 위치로 순간이동합니다.", "/teleport <location>", listOf("tp", "taxi"),
 ) {
     override fun execute(sender: CommandSender, commandLabel: String, args: Array<out String>): Boolean {
-        if (args.size != 3) {
+        try {
+            if (args.size != 3) {
+                return false
+            }
+            if (sender !is Player) {
+                return false
+            }
+            val destination = Location(
+                sender.location.world,
+                args[0].toDouble(), args[1].toDouble(), args[2].toDouble()
+            )
+            return this.teleport(sender, destination)
+        } catch (e: Exception) {
+            log.error(e) { e.message }
             return false
         }
-        if (sender !is Player) {
-            return false
-        }
-        val destination = Location(sender.location.world, args[0].toDouble(), args[1].toDouble(), args[2].toDouble())
-        return this.teleport(sender, destination)
     }
 
     override fun tabComplete(
