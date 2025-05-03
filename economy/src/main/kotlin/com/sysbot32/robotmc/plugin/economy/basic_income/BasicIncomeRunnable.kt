@@ -10,8 +10,8 @@ class BasicIncomeRunnable(
 ) : BukkitRunnable() {
     override fun run() {
         val config = plugin.config
-        val message = config.getString("message", "기본 소득 지급")
-        val amount = config.getDouble("amount", 25.0)
+        val message = config.getString("basic-income.message", "기본 소득 지급")
+        val amount = config.getDouble("basic-income.amount", 25.0)
         val onlinePlayers = Bukkit.getOnlinePlayers()
         val economy = Bukkit.getServer().servicesManager.getRegistration(Economy::class.java)?.provider ?: return
         for (onlinePlayer in onlinePlayers) {
