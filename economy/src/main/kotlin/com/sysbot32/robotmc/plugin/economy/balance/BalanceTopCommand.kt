@@ -1,4 +1,4 @@
-package com.sysbot32.robotmc.plugin.economy
+package com.sysbot32.robotmc.plugin.economy.balance
 
 import com.sysbot32.robotmc.plugin.core.format
 import io.github.oshai.kotlinlogging.KotlinLogging
