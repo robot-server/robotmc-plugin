@@ -11,7 +11,7 @@ import org.bukkit.entity.Player
 private val log = KotlinLogging.logger { }
 
 class BalanceCommand : BukkitCommand(
-    "balance", "잔고을 조회합니다.", "/balance", listOf("bal"),
+    "balance", "잔고을 조회합니다.", "/balance", listOf("bal", "money"),
 ) {
     override fun execute(sender: CommandSender, commandLabel: String, args: Array<out String>): Boolean {
         try {
