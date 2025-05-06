@@ -1,4 +1,4 @@
-package com.sysbot32.robotmc.plugin.core.coordinates
+package com.sysbot32.robotmc.plugin.core.services
 
 import org.bukkit.Location
 import org.bukkit.OfflinePlayer

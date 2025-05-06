@@ -1,6 +1,6 @@
 package com.sysbot32.robotmc.plugin.coordinate
 
-import com.sysbot32.robotmc.plugin.core.coordinates.Coordinate
+import com.sysbot32.robotmc.plugin.core.services.Coordinate
 import com.sysbot32.robotmc.plugin.core.toSimpleString
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.bukkit.Bukkit

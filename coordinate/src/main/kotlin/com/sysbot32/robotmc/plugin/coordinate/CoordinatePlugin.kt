@@ -1,7 +1,7 @@
 package com.sysbot32.robotmc.plugin.coordinate
 
 import com.sysbot32.robotmc.plugin.core.config.DataSourceConfig
-import com.sysbot32.robotmc.plugin.core.coordinates.Coordinate
+import com.sysbot32.robotmc.plugin.core.services.Coordinate
 import org.bukkit.plugin.ServicePriority
 import org.bukkit.plugin.java.JavaPlugin
 import org.jetbrains.exposed.sql.Database
