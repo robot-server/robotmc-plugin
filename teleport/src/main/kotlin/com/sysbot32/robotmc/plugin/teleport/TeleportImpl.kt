@@ -30,4 +30,12 @@ class TeleportImpl : Teleport {
         economy.withdrawPlayer(player, price)
         return player.teleport(destination)
     }
+
+    override fun teleport(player: Player, destination: Player): Boolean {
+        if (player.world != destination.world) {
+            player.sendMessage("서로 다른 월드 간 이동은 현재 지원하지 않습니다.")
+            return false
+        }
+        return this.teleport(player, destination.location)
+    }
 }

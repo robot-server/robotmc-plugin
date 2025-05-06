@@ -16,18 +16,27 @@ class TeleportCommand : BukkitCommand(
 ) {
     override fun execute(sender: CommandSender, commandLabel: String, args: Array<out String>): Boolean {
         try {
-            if (args.size != 3) {
+            if (args.size != 1 && args.size != 3) {
                 return false
             }
             if (sender !is Player) {
                 return false
             }
-            val destination = Location(
-                sender.location.world,
-                args[0].toDouble(), args[1].toDouble(), args[2].toDouble()
-            )
             Bukkit.getServicesManager().getRegistration(Teleport::class.java)?.provider?.run {
-                return teleport(sender, destination)
+                if (args.size == 1) {
+                    val destination = Bukkit.getPlayer(args.first())
+                    if (destination == null) {
+                        sender.sendMessage("${args.first()} 플레이어를 찾을 수 없습니다.")
+                        return false
+                    }
+                    return teleport(sender, destination)
+                } else {
+                    val destination = Location(
+                        sender.location.world,
+                        args[0].toDouble(), args[1].toDouble(), args[2].toDouble()
+                    )
+                    return teleport(sender, destination)
+                }
             }
             return false
         } catch (e: Exception) {
@@ -42,13 +51,20 @@ class TeleportCommand : BukkitCommand(
         args: Array<out String>,
         location: Location?
     ): List<String?> {
-        super.tabComplete(sender, alias, args, location)
-        if (args.size <= 3 && sender is Player) {
-            return listOf(
-                sender.location.x.format(3),
-                sender.location.y.format(6),
-                sender.location.z.format(3),
-            )
+        val matchedPlayer = super.tabComplete(sender, alias, args, location)
+        if (sender !is Player) {
+            return listOf()
+        }
+        val coordinates = listOf(
+            sender.location.x.format(3),
+            sender.location.y.format(6),
+            sender.location.z.format(3),
+        )
+        if (args.size == 1) {
+            return matchedPlayer + coordinates
+        }
+        if (args.size <= 3) {
+            return coordinates
         }
         return listOf()
     }
