@@ -3,8 +3,10 @@ package com.sysbot32.robotmc.plugin.core
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.World
+import java.text.DecimalFormat
 
 fun Double.format(digits: Int): String = "%.${digits}f".format(this)
+fun Double.format(decimalFormat: DecimalFormat): String = decimalFormat.format(this)
 
 fun World.getOtherEnvironment(environment: World.Environment): World? {
     if (this.environment == environment) {

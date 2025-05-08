@@ -7,6 +7,7 @@ import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.bukkit.command.defaults.BukkitCommand
 import org.bukkit.entity.Player
+import java.text.DecimalFormat
 
 private val log = KotlinLogging.logger { }
 
@@ -20,7 +21,7 @@ class BalanceCommand : BukkitCommand(
             }
             Bukkit.getServicesManager().getRegistration(Economy::class.java)?.provider?.run {
                 val balance = getBalance(sender)
-                sender.sendMessage("잔고: ${balance.format(2)}원")
+                sender.sendMessage("잔고: $${balance.format(DecimalFormat("#,##0.00"))}")
                 return true
             }
             return false
