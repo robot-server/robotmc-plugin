@@ -3,11 +3,15 @@ package com.sysbot32.robotmc.plugin.teleport
 import com.sysbot32.robotmc.plugin.core.format
 import com.sysbot32.robotmc.plugin.core.services.Teleport
 import com.sysbot32.robotmc.plugin.core.toSimpleString
+import io.github.oshai.kotlinlogging.KotlinLogging
 import net.milkbowl.vault.economy.Economy
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.entity.Player
+import java.text.DecimalFormat
 import kotlin.math.max
+
+private val log = KotlinLogging.logger { }
 
 class TeleportImpl : Teleport {
     private fun calculatePrice(source: Location, destination: Location): Double {
@@ -26,7 +30,14 @@ class TeleportImpl : Teleport {
             player.sendMessage("잔액이 부족합니다! 필요 금액: $price")
             return false
         }
-        player.sendMessage("${player.location.toSimpleString()} -> ${destination.toSimpleString()}: $price")
+        player.sendMessage(
+            "출발지: ${player.location.toSimpleString()}\n도착지: ${destination.toSimpleString()}\n요금: $${
+                price.format(
+                    DecimalFormat("#,##0.00")
+                )
+            }"
+        )
+        log.info { "${player.location.toSimpleString()} -> ${destination.toSimpleString()}: $price" }
         economy.withdrawPlayer(player, price)
         return player.teleport(destination)
     }
