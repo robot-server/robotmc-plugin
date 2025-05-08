@@ -7,4 +7,9 @@ class ClockPlugin : JavaPlugin() {
         server.commandMap.register(name.lowercase(), NowCommand())
         ClockRunnable().runTaskTimerAsynchronously(this, 0, 20)
     }
+
+    override fun onDisable() {
+        server.commandMap.clearCommands()
+        server.scheduler.cancelTasks(this)
+    }
 }

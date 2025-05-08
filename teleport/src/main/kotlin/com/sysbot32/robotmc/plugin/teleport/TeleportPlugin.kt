@@ -9,4 +9,9 @@ class TeleportPlugin : JavaPlugin() {
         server.commandMap.register(name.lowercase(), TeleportCommand())
         server.servicesManager.register(Teleport::class.java, TeleportImpl(), this, ServicePriority.Normal)
     }
+
+    override fun onDisable() {
+        server.commandMap.clearCommands()
+        server.servicesManager.unregisterAll(this)
+    }
 }

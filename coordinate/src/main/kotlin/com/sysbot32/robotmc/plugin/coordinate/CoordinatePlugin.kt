@@ -23,4 +23,9 @@ class CoordinatePlugin : JavaPlugin() {
         server.pluginManager.registerEvents(CoordinateListener(), this)
         server.servicesManager.register(Coordinate::class.java, CoordinateImpl(), this, ServicePriority.Normal)
     }
+
+    override fun onDisable() {
+        server.commandMap.clearCommands()
+        server.servicesManager.unregisterAll(this)
+    }
 }

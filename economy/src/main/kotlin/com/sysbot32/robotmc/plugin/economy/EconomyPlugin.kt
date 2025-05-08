@@ -18,4 +18,9 @@ class EconomyPlugin : JavaPlugin() {
         server.commandMap.register(name.lowercase(), PayCommand())
         server.commandMap.register(name.lowercase(), ReloadCommand(this))
     }
+
+    override fun onDisable() {
+        server.commandMap.clearCommands()
+        server.scheduler.cancelTasks(this)
+    }
 }
