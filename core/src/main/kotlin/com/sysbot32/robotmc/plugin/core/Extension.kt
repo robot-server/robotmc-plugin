@@ -55,5 +55,5 @@ fun Location.toNether(): Location {
 }
 
 fun Location.toSimpleString(): String {
-    return "${this.world.environment} ${this.x.format(3)} / ${this.y.format(5)} / ${this.z.format(3)}"
+    return "[${this.world.name}] (${this.x.format(1)}, ${this.y.format(1)}, ${this.z.format(1)})"
 }
