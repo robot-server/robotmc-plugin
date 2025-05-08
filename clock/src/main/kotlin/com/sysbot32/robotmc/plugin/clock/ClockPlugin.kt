@@ -9,7 +9,6 @@ class ClockPlugin : JavaPlugin() {
     }
 
     override fun onDisable() {
-        server.commandMap.clearCommands()
         server.scheduler.cancelTasks(this)
     }
 }

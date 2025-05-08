@@ -25,7 +25,6 @@ class CoordinatePlugin : JavaPlugin() {
     }
 
     override fun onDisable() {
-        server.commandMap.clearCommands()
         server.servicesManager.unregisterAll(this)
     }
 }

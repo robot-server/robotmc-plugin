@@ -11,7 +11,6 @@ class TeleportPlugin : JavaPlugin() {
     }
 
     override fun onDisable() {
-        server.commandMap.clearCommands()
         server.servicesManager.unregisterAll(this)
     }
 }
