@@ -6,7 +6,7 @@ dependencies {
     api(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)
     implementation(libs.ktor.client.websockets)
-    implementation(libs.ktor.serialization.kotlinx.json)
+    api(libs.ktor.serialization.kotlinx.json)
     api("io.github.oshai:kotlin-logging-jvm:7.0.7")
     api(libs.exposed.core)
     implementation(libs.exposed.jdbc)

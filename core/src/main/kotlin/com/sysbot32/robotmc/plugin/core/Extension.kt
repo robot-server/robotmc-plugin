@@ -1,5 +1,6 @@
 package com.sysbot32.robotmc.plugin.core
 
+import kotlinx.serialization.json.*
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.World
@@ -7,6 +8,42 @@ import java.text.DecimalFormat
 
 fun Double.format(digits: Int): String = "%.${digits}f".format(this)
 fun Double.format(decimalFormat: DecimalFormat): String = decimalFormat.format(this)
+
+fun List<*>.toJsonArray(): JsonArray {
+    val list: MutableList<JsonElement> = mutableListOf()
+    this.forEach { value ->
+        when (value) {
+            null -> list.add(JsonNull)
+            is Map<*, *> -> list.add(value.toJsonObject())
+            is List<*> -> list.add(value.toJsonArray())
+            is Boolean -> list.add(JsonPrimitive(value))
+            is Number -> list.add(JsonPrimitive(value))
+            is String -> list.add(JsonPrimitive(value))
+            is Enum<*> -> list.add(JsonPrimitive(value.toString()))
+            else -> throw IllegalStateException("Can't serialize unknown collection type: $value")
+        }
+    }
+    return JsonArray(list)
+}
+
+fun Map<*, *>.toJsonObject(): JsonObject {
+    val map: MutableMap<String, JsonElement> = mutableMapOf()
+    this.forEach { (key, value) ->
+        key as String
+        when (value) {
+            null -> map[key] = JsonNull
+            is Map<*, *> -> map[key] = value.toJsonObject()
+            is List<*> -> map[key] = value.toJsonArray()
+            is Boolean -> map[key] = JsonPrimitive(value)
+            is Number -> map[key] = JsonPrimitive(value)
+            is String -> map[key] = JsonPrimitive(value)
+            is Enum<*> -> map[key] = JsonPrimitive(value.toString())
+            else -> throw IllegalStateException("Can't serialize unknown type: $value")
+        }
+    }
+    return JsonObject(map)
+}
+// https://youtrack.jetbrains.com/issue/KTOR-3063/Support-serializing-collections-of-different-element-types
 
 fun World.getOtherEnvironment(environment: World.Environment): World? {
     if (this.environment == environment) {
