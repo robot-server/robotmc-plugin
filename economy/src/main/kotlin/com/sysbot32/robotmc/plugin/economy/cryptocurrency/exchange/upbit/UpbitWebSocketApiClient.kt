@@ -6,15 +6,32 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.client.*
 import io.ktor.client.plugins.websocket.*
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.double
+import kotlinx.serialization.json.jsonPrimitive
+import org.bukkit.plugin.Plugin
+import org.bukkit.scheduler.BukkitRunnable
 import java.util.*
 
 private val log = KotlinLogging.logger { }
 
 class UpbitWebSocketApiClient(
+    private val plugin: Plugin,
     private val publicUrl: String = "wss://api.upbit.com/websocket/v1",
     private val httpClient: HttpClient = HttpClientConfig().httpClient(),
 ) {
-    fun ticker(codes: List<String>) {
+    private val tickerResponses = mutableMapOf<String, JsonObject>()
+
+    init {
+        object : BukkitRunnable() {
+            override fun run() {
+                ticker(listOf("KRW-BTC", "KRW-DOGE"))
+            }
+        }.runTaskAsynchronously(this.plugin)
+    }
+
+    private fun ticker(codes: List<String>) {
         runBlocking {
             httpClient.webSocket(
                 urlString = publicUrl,
@@ -26,7 +43,6 @@ class UpbitWebSocketApiClient(
                     mapOf(
                         "type" to "ticker",
                         "codes" to codes,
-                        "is_only_snapshot" to true,
                     ),
                     mapOf(
                         "format" to "DEFAULT",
@@ -34,9 +50,17 @@ class UpbitWebSocketApiClient(
                 ).toJsonArray()
                 log.info { "request: $request" }
                 sendSerialized(request)
-                val response = String(incoming.receive().data)
-                log.info { "response: $response" }
+                while (true) {
+                    val response = Json.decodeFromString<JsonObject>(String(incoming.receive().data))
+                    log.debug { "response: $response" }
+                    val code = response["code"]?.jsonPrimitive.toString().removeSurrounding("\"")
+                    tickerResponses[code] = response
+                }
             }
         }
+    }
+
+    fun getTradePrice(code: String): Double {
+        return tickerResponses[code]?.get("trade_price")?.jsonPrimitive?.double ?: 0.0
     }
 }
