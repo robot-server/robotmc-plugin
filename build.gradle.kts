@@ -11,6 +11,9 @@ allprojects {
         maven("https://repo.papermc.io/repository/maven-public/") {
             name = "papermc-repo"
         }
+        maven("https://repo.spongepowered.org/maven/") {
+            name = "spongepowered-repo"
+        }
         maven("https://oss.sonatype.org/content/groups/public/") {
             name = "sonatype"
         }
