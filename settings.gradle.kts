@@ -5,7 +5,8 @@ plugins {
 rootProject.name = "robotmc-plugin"
 
 include("core")
-include("clock")
-include("coordinate")
-include("economy")
-include("teleport")
+include("paper")
+include("paper:clock")
+include("paper:coordinate")
+include("paper:economy")
+include("paper:teleport")
