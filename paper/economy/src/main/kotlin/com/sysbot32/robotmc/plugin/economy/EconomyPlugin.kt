@@ -6,6 +6,8 @@ import com.sysbot32.robotmc.plugin.economy.balance.BalanceTopCommand
 import com.sysbot32.robotmc.plugin.economy.basic_income.BasicIncomeRunnable
 import com.sysbot32.robotmc.plugin.economy.cryptocurrency.CryptocurrencyCommand
 import com.sysbot32.robotmc.plugin.economy.pay.PayCommand
+import net.milkbowl.vault.economy.Economy
+import org.bukkit.plugin.ServicePriority
 import org.bukkit.plugin.java.JavaPlugin
 import kotlin.time.Duration.Companion.minutes
 
@@ -19,6 +21,9 @@ class EconomyPlugin : JavaPlugin() {
         server.commandMap.register(name.lowercase(), CryptocurrencyCommand(this))
         server.commandMap.register(name.lowercase(), PayCommand())
         server.commandMap.register(name.lowercase(), ReloadCommand(this))
+        if (server.servicesManager.getRegistration(Economy::class.java) == null) {
+            server.servicesManager.register(Economy::class.java, EconomyImpl(), this, ServicePriority.Normal)
+        }
     }
 
     override fun onDisable() {
